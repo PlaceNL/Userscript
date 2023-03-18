@@ -1,0 +1,13 @@
+// ==UserScript==
+// @name         PlaceNL Userscript
+// @namespace    https://github.com/PlaceNL/Userscript
+// @version      0.0.0
+// @description  The easiest way to run our automated placer, right from your browser
+// @author       PlaceNL
+// @match        https://www.reddit.com/r/place/*
+// @match        https://new.reddit.com/r/place/*
+// @connect      reddit.com
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
+// @updateURL    https://github.com/PlaceNL/Bot/raw/master/placenlbot.user.js
+// @downloadURL  https://github.com/PlaceNL/Bot/raw/master/placenlbot.user.js
+// ==/UserScript==
