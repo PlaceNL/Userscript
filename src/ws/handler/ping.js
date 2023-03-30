@@ -1,4 +1,4 @@
 export function handlePing(client) {
-    client.lastPing = new Date();
-    client.sendPayload('pong');
+    client.ws.lastPing = new Date();
+    client.ws.sendPayload('pong');
 }

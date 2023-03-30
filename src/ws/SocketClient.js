@@ -3,6 +3,9 @@ import {handlePing} from './handler/ping.js';
 import {handleHello} from './handler/hello.js';
 import {infoNotification, setHUDTitle, warningNotification} from '../notifications.js';
 import {lang} from '../lang/language.js';
+import {handleOrder} from './handler/orders.js';
+import {handleDisconnect} from './handler/disconnect.js';
+import {handleAnnouncement} from './handler/announcement.js';
 
 export class SocketClient {
     ws;
@@ -11,8 +14,10 @@ export class SocketClient {
     connectionTimeoutChecker;
     keepaliveTimeout;
     keepaliveCheckerInterval;
+    connected = false;
 
-    connect() {
+    connect(client) {
+        this.connected = false;
         this.ws = new WebSocket(CHIEF_WS_ENDPOINT);
 
         this.connectionTimeoutChecker = setTimeout(() => {
@@ -37,34 +42,52 @@ export class SocketClient {
             }, 1000);
         };
 
-        this.ws.onclose = (e) => {
+        this.ws.onclose = () => {
             warningNotification(lang().TOAST_LOST_CONNECTION, lang().TOAST_LOST_CONNECTION_BODY);
             clearInterval(this.keepaliveCheckerInterval);
+            this.connected = false;
 
             setTimeout(() => {
-                this.connect();
+                this.connect(client);
             }, 2500);
         };
 
-        this.ws.onerror = (e) => {
+        this.ws.onerror = () => {
             this.ws.close();
         };
 
         this.ws.onmessage = (msg) => {
             const message = JSON.parse(msg.data);
-            console.log(message)
             const {type, payload} = message;
 
             switch (type) {
+                case 'error':
+                    console.warn('Got error: ', payload);
+                    break;
+
+                case 'announcement':
+                    handleAnnouncement(payload);
+                    break;
+
+                case 'disconnect':
+                    handleDisconnect(payload);
+                    break;
+
                 case 'hello':
-                    handleHello(this, payload);
+                    handleHello(client, payload);
+                    break;
+
+                case 'order':
+                    handleOrder(client, payload);
                     break;
 
                 case 'ping':
-                    handlePing(this);
+                    handlePing(client);
                     break;
 
                 case 'brandUpdated':
+                case 'enabledCapability':
+                case 'disabledCapability':
                 case 'subscribed':
                 case 'unsubscribed':
                     break;
@@ -85,5 +108,17 @@ export class SocketClient {
 
     subscribe(to) {
         this.sendPayload('subscribe', to);
+    }
+
+    unsubscribe(from) {
+        this.sendPayload('unsubscribe', from);
+    }
+
+    enableCapability(capability) {
+        this.sendPayload('enableCapability', capability);
+    }
+
+    disableCapability(capability) {
+        this.sendPayload('disableCapability', capability);
     }
 }

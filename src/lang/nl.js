@@ -8,5 +8,7 @@ export const NL = {
     TOAST_LOST_CONNECTION: 'Verbinding met server verbroken',
     TOAST_LOST_CONNECTION_BODY: 'Herverbinden in een paar seconden...',
     TOAST_SERVER_NOT_RESPONDING: 'Server reageert niet',
-    TOAST_SERVER_NOT_RESPONDING_BODY: 'De server heeft een tijdje niet gereageerd. Herverbinden...'
+    TOAST_SERVER_NOT_RESPONDING_BODY: 'De server heeft een tijdje niet gereageerd. Herverbinden...',
+    TOAST_DISCONNECTED_BY_SERVER: 'Verbinding verbroken by server',
+    TOAST_RECEIVED_NEW_ORDERS: 'Nieuwe orders zijn aangekondigd, laden...'
 };

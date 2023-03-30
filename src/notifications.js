@@ -1,5 +1,6 @@
 import Toastify from 'toastify-js';
 import css from 'toastify-js/src/toastify.css';
+import {USERSCRIPT_REVISION} from './constants.js';
 
 export const HUDToast = Toastify({
     text: 'PlaceNL Userscript',
@@ -31,7 +32,7 @@ export function setHUDBody(body) {
 }
 
 function reshowHUD() {
-    HUDToast.options.text = `PlaceNL Userscript | ${HUDToast.title}\n${HUDToast.body}`;
+    HUDToast.options.text = `PlaceNL Userscript (version ${USERSCRIPT_REVISION.slice(0, 7)}) | ${HUDToast.title}\n${HUDToast.body}`;
     HUDToast.hideToast();
     HUDToast.toastElement.parentNode.removeChild(HUDToast.toastElement);
     HUDToast.showToast();

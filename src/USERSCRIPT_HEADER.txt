@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PlaceNL Userscript
 // @namespace    https://github.com/PlaceNL/Userscript
-// @version      0.0.0
+// @version      ___GIT_HASH___
 // @description  The easiest way to run our automated placer, right from your browser
 // @author       PlaceNL
 // @match        https://www.reddit.com/r/place/*
@@ -11,3 +11,8 @@
 // @updateURL    https://github.com/PlaceNL/Bot/raw/master/placenlbot.user.js
 // @downloadURL  https://github.com/PlaceNL/Bot/raw/master/placenlbot.user.js
 // ==/UserScript==
+
+/*
+ * The code below is a minified, webpacked bundle.
+ * The uncompiled source code can be found at https://github.com/PlaceNL/Userscript
+ */

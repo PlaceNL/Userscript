@@ -6,7 +6,7 @@ const commit = require('node:child_process')
     .execSync('git rev-parse HEAD')
     .toString().trim();
 
-const HEADER = fs.readFileSync(`${__dirname}/src/USERSCRIPT_HEADER.txt`, 'utf-8');
+const HEADER = fs.readFileSync(`${__dirname}/src/USERSCRIPT_HEADER.txt`, 'utf-8').replace(/___GIT_HASH___/g, commit);
 const UserScriptHeaderAppender = function () {
     this.apply = function (compiler) {
         compiler.hooks.compilation.tap('userscript-header', (compilation) => {

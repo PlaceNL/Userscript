@@ -1,14 +1,20 @@
 import {USERSCRIPT_REVISION} from '../../constants.js';
 
 export function handleHello(client, payload) {
-    client.id = payload.id;
-    client.keepaliveTimeout = payload.keepaliveTimeout;
+    client.ws.connected = true;
+    client.ws.id = payload.id;
+    client.ws.keepaliveTimeout = payload.keepaliveTimeout;
 
-    client.subscribe('announcement');
+    client.ws.subscribe('announcements');
+    client.ws.subscribe('orders');
 
-    client.sendPayload('brand', {
+    client.ws.enableCapability('priorityMappings');
+
+    client.ws.sendPayload('brand', {
         author: 'PlaceNL',
         name: 'Userscript',
         version: USERSCRIPT_REVISION
     });
+
+    client.ws.sendPayload('getOrder');
 }
