@@ -40,6 +40,9 @@ module.exports = {
                 use: ['css-loader']
             }
         ]
+    },
+    output: {
+        filename: 'placenl-userscript.user.js'
     }
 };
 
