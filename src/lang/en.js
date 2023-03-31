@@ -6,5 +6,6 @@ export const EN = {
     TOAST_SERVER_NOT_RESPONDING: 'Server not responding',
     TOAST_SERVER_NOT_RESPONDING_BODY: 'The server has not responded for a while. Reconnecting...',
     TOAST_DISCONNECTED_BY_SERVER: 'Disconnected by server',
-    TOAST_RECEIVED_NEW_ORDERS: 'New orders have been announced, loading...'
+    TOAST_RECEIVED_NEW_ORDERS: 'New orders have been announced, loading...',
+    TOAST_UPDATE_DETECTED: 'Userscript update detected! Reloading page to apply...'
 };

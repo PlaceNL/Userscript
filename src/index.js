@@ -1,5 +1,5 @@
 import {SocketClient} from './ws/SocketClient.js';
-import {createToastifyStyle} from './notifications.js';
+import {createToastifyStyle, hookIntoAutoUpdater} from './notifications.js';
 
 const client = {
     ws: new SocketClient(),
@@ -9,6 +9,7 @@ const client = {
 };
 
 createToastifyStyle();
+hookIntoAutoUpdater();
 client.ws.connect(client);
 window.PLACENL_USERSCRIPT_CLIENT = client;
 

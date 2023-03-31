@@ -1,6 +1,7 @@
 import Toastify from 'toastify-js';
 import css from 'toastify-js/src/toastify.css';
 import {USERSCRIPT_REVISION} from './constants.js';
+import {lang} from './lang/language.js';
 
 export const HUDToast = Toastify({
     text: 'PlaceNL Userscript',
@@ -32,7 +33,7 @@ export function setHUDBody(body) {
 }
 
 function reshowHUD() {
-    HUDToast.options.text = `PlaceNL Userscript (version ${USERSCRIPT_REVISION.slice(0, 7)}) | ${HUDToast.title}\n${HUDToast.body}`;
+    HUDToast.options.text = `PlaceNL Userscript (version ${USERSCRIPT_REVISION.slice(0, 7)}${window.PLACENL_USERSCRIPT_AUTO_UPDATER ? '-auto' : ''}) | ${HUDToast.title}\n${HUDToast.body}`;
     HUDToast.hideToast();
     HUDToast.toastElement.parentNode.removeChild(HUDToast.toastElement);
     HUDToast.showToast();
@@ -74,4 +75,12 @@ export function createToastifyStyle() {
     const style = document.createElement('style');
     style.innerText = css;
     document.body.appendChild(style);
+}
+
+export function hookIntoAutoUpdater() {
+    if (!window.PLACENL_USERSCRIPT_AUTO_UPDATER) return;
+
+    window.PLACENL_USERSCRIPT_AUTO_UPDATER.updateHook = () => {
+        infoNotification(lang().TOAST_UPDATE_DETECTED);
+    };
 }
