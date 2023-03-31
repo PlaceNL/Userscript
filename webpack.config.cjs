@@ -29,7 +29,8 @@ const UserScriptHeaderAppender = function () {
 module.exports = {
     plugins: [
         new DefinePlugin({
-            ___GIT_HASH___: JSON.stringify(commit)
+            ___GIT_HASH___: JSON.stringify(commit),
+            ___WS_ENDPOINT___: JSON.stringify(process.env.WS_ENDPOINT)
         }),
         new UserScriptHeaderAppender()
     ],
