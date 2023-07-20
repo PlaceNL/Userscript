@@ -38,15 +38,18 @@ Not sure what your browser is? Go to https://www.whatsmybrowser.org/
 If it downloads a file, then Violentmonkey is not correctly installed. In that case, you can use this link instead: https://github.com/PlaceNL/Userscript/releases/download/latest/placenl-userscript.user.js
 
 4. Reload the r/place website (CTRL + F5):
+
    ![Reload r/place](https://i.imgur.com/TCshmGB.png)
 
 Congratulations! Violentmonkey is now running with the Autoplacer script, automatically placing pixels on r/place. Make sure to keep the website https://www.reddit.com/r/place/ open and be logged in to your Reddit account.
 
 ## Turn Off Violentmonkey
 1. Go to your extensions (usually located at the top right of your internet browser):
+
    ![Extensions](https://i.imgur.com/8Iibe7H.png)
-2. Find "Violentmonkey" and click on it.
-3. Click on the switch to turn Violentmonkey off:
+3. Find "Violentmonkey" and click on it.
+4. Click on the switch to turn Violentmonkey off:
+
    ![Turn Off](https://i.imgur.com/d8A8xsX.png)
 
 Now, Violentmonkey is turned off.
