@@ -8,7 +8,9 @@ export async function handleHello(client, payload) {
     client.ws.subscribe('announcements');
     client.ws.subscribe('orders');
 
-    client.ws.enableCapability('priorityMappings');
+    for (const capability of client.ws.capabilities) {
+        client.ws.enableCapability(capability);
+    }
 
     client.ws.sendPayload('brand', {
         author: 'PlaceNL',

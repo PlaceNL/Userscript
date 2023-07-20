@@ -11,9 +11,14 @@ export class CanvasPlacer {
     mayPlace = false;
     cooldownEndsAt = undefined;
     placing = false;
+    placingSince = 0;
 
     startTimer(client) {
         setInterval(async () => {
+            if (this.placing && Date.now() - this.placingSince > 30_000) {
+                this.placing = false;
+            }
+
             if (!this.mayPlace || this.placing) return;
             if (!this.cooldownEndsAt) {
                 if (this.cooldownEndsAt === undefined) {
@@ -34,9 +39,10 @@ export class CanvasPlacer {
             if (this.cooldownEndsAt > Date.now()) return;
 
             this.placing = true;
+            this.placingSince = Date.now();
             client.ws.enableCapability('placeNow');
             infoNotification(lang().TOAST_PLACING_PIXEL);
-            setHUDBody(null);
+            setHUDBody('');
             try {
                 const canvases = await getCanvasURLS(client, [1, 4]);
                 client.placeReference.clearRect(0, 0, client.placeReference.canvas.width, client.placeReference.canvas.height);
@@ -71,17 +77,18 @@ export class CanvasPlacer {
 
                         infoNotification(lang().TOAST_PLACING_PIXEL_AT.replace('{x}', displayX).replace('{y}', displayY));
                         let delay = await placePixel(client, canvasX, canvasY, pi, canvas);
-                        infoNotification(lang().TOAST_PLACED_PIXEL_AT.replace('{x}', displayX).replace('{y}', displayY));
+                        let timeout = Math.max(this.cooldownEndsAt - Date.now(), 1000);
+                        infoNotification(lang().TOAST_PLACED_PIXEL_AT.replace('{x}', displayX).replace('{y}', displayY), timeout);
 
                         if (typeof delay === 'number') {
                             this.cooldownEndsAt = delay;
-                            infoNotification(lang().TOAST_PLACE_PIXELS_IN.replace('{time}', new Date(this.cooldownEndsAt).toLocaleTimeString()), null, Math.max(this.cooldownEndsAt - Date.now(), 1000));
+                            infoNotification(lang().TOAST_PLACE_PIXELS_IN.replace('{time}', new Date(this.cooldownEndsAt).toLocaleTimeString()), null, timeout);
                         }
 
                         break;
                     }
                 } else {
-                    infoNotification(lang().TOAST_ALL_PIXELS_RIGHT, lang().TOAST_ALL_PIXELS_RIGHT_BODY);
+                    infoNotification(lang().TOAST_ALL_PIXELS_RIGHT, lang().TOAST_ALL_PIXELS_RIGHT_BODY, 30_000);
                 }
             } finally {
                 this.placing = false;
@@ -94,9 +101,9 @@ export class CanvasPlacer {
 
 function componentToHex(c) {
     const hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length === 1 ? '0' + hex : hex;
 }
 
 function rgbToHex([r, g, b]) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }

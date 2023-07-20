@@ -15,11 +15,11 @@ export class SocketClient {
     keepaliveTimeout;
     keepaliveCheckerInterval;
     connected = false;
+    capabilities = ['priorityMappings'];
 
     connect(client) {
         this.connected = false;
         this.ws = new WebSocket(CHIEF_WS_ENDPOINT);
-        client.nextPlace = null;
 
         this.connectionTimeoutChecker = setTimeout(() => {
             this.ws.close();
@@ -117,10 +117,12 @@ export class SocketClient {
     }
 
     enableCapability(capability) {
+        if (!this.capabilities.includes(capability)) this.capabilities.push(capability);
         this.sendPayload('enableCapability', capability);
     }
 
     disableCapability(capability) {
+        if (this.capabilities.includes(capability)) this.capabilities.splice(this.capabilities.indexOf(capability), 1);
         this.sendPayload('disableCapability', capability);
     }
 }
