@@ -39,10 +39,10 @@ function reshowHUD() {
     HUDToast.showToast();
 }
 
-export function infoNotification(title, body = undefined) {
+export function infoNotification(title, body = undefined, duration = 5000) {
     Toastify({
         text: (body ? (title + '\n' + body) : title),
-        duration: 5000,
+        duration,
         close: false,
         gravity: 'top',
         position: 'right',
@@ -55,10 +55,10 @@ export function infoNotification(title, body = undefined) {
     }).showToast();
 }
 
-export function warningNotification(title, body = undefined) {
+export function warningNotification(title, body = undefined, duration = 10000) {
     Toastify({
         text: (body ? (title + '\n' + body) : title),
-        duration: 10000,
+        duration,
         close: false,
         gravity: 'top',
         position: 'right',

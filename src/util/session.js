@@ -1,6 +1,6 @@
 const EXPIRY_MARGIN = 15_000; // Prevent the token expiring while making the request
 
-export async function getAccessToken(client) {
+export async function getAccessToken(client, allowAnonymous = false) {
     if (client.session) {
         if (client.session.expires.getTime() - EXPIRY_MARGIN < Date.now()) {
             return client.session.token;
@@ -15,6 +15,9 @@ export async function getAccessToken(client) {
     const config = JSON.parse(configRaw);
 
     if (config.user.session.unsafeLoggedOut) {
+        if (allowAnonymous) {
+            return config.user.session.accessToken;
+        }
         return null;
     }
 

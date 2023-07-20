@@ -19,6 +19,7 @@ export class SocketClient {
     connect(client) {
         this.connected = false;
         this.ws = new WebSocket(CHIEF_WS_ENDPOINT);
+        client.nextPlace = null;
 
         this.connectionTimeoutChecker = setTimeout(() => {
             this.ws.close();
@@ -43,6 +44,7 @@ export class SocketClient {
         };
 
         this.ws.onclose = () => {
+            client.canvasPlacer.mayPlace = false;
             warningNotification(lang().TOAST_LOST_CONNECTION, lang().TOAST_LOST_CONNECTION_BODY);
             clearInterval(this.keepaliveCheckerInterval);
             this.connected = false;
