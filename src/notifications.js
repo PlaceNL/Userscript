@@ -33,7 +33,7 @@ export function setHUDBody(body) {
 }
 
 function reshowHUD() {
-    HUDToast.options.text = `PlaceNL Userscript (version ${USERSCRIPT_REVISION.slice(0, 7)}${window.PLACENL_USERSCRIPT_AUTO_UPDATER ? '-auto' : ''}) | ${HUDToast.title}\n${HUDToast.body}`;
+    HUDToast.options.text = `PlaceNL Userscript (version ${USERSCRIPT_REVISION.slice(0, 7)}${(typeof unsafeWindow !== 'undefined' ? unsafeWindow : window).PLACENL_USERSCRIPT_AUTO_UPDATER ? '-auto' : ''}) | ${HUDToast.title}\n${HUDToast.body}`;
     HUDToast.hideToast();
     HUDToast.toastElement.parentNode.removeChild(HUDToast.toastElement);
     HUDToast.showToast();
@@ -78,9 +78,10 @@ export function createToastifyStyle() {
 }
 
 export function hookIntoAutoUpdater() {
-    if (!window.PLACENL_USERSCRIPT_AUTO_UPDATER) return;
+    let w = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
+    if (!w.PLACENL_USERSCRIPT_AUTO_UPDATER) return;
 
-    window.PLACENL_USERSCRIPT_AUTO_UPDATER.updateHook = () => {
+    w.PLACENL_USERSCRIPT_AUTO_UPDATER.updateHook = () => {
         infoNotification(lang().TOAST_UPDATE_DETECTED);
     };
 }
