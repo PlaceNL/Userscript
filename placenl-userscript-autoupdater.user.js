@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PlaceNL Userscript (Autoupdater)
 // @namespace    https://github.com/PlaceNL/Userscript
-// @version      0.0.1
+// @version      0.0.2
 // @description  The easiest way to run our automated placer and keep it up to date, right from your browser
 // @author       PlaceNL
 // @match        https://www.reddit.com/r/place/*
@@ -51,7 +51,7 @@ const UPDATE_CHECK_INTERVAL = 10 * 60 * 1000;
                         if (scriptData === newScriptData) return;
 
                         // Give the userscript some time to display its update message
-                        await window.PLACENL_USERSCRIPT_AUTO_UPDATER.updateHook();
+                        await (typeof unsafeWindow !== 'undefined' ? unsafeWindow : window).PLACENL_USERSCRIPT_AUTO_UPDATER.updateHook();
                         setTimeout(() => window.location.reload(), 5000);
                     }
                 });

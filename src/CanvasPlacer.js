@@ -53,7 +53,6 @@ export class CanvasPlacer {
                 const wrongPixels = getIncorrectPixels(client);
                 if (wrongPixels.length !== 0) {
                     while (wrongPixels.length !== 0) {
-                        console.log(wrongPixels)
                         let pixel = wrongPixels.shift();
                         const hex = rgbToHex(pixel[2]);
                         const pi = PALETTE.indexOf(hex.toUpperCase());
