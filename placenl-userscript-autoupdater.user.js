@@ -19,7 +19,7 @@ const SCRIPT_LOCATION = 'https://github.com/PlaceNL/Userscript/releases/download
 const UPDATE_CHECK_INTERVAL = 10 * 60 * 1000;
 
 (function () {
-    window.PLACENL_USERSCRIPT_AUTO_UPDATER = {
+    (typeof unsafeWindow !== 'undefined' ? unsafeWindow : window).PLACENL_USERSCRIPT_AUTO_UPDATER = {
         version: '0.0.1',
         updateHook: () => {
         }

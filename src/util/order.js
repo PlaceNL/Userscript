@@ -5,7 +5,7 @@ export function getIncorrectPixels(client) {
 
     const orderReference = client.orderReference.getImageData(0, 0, client.orderReference.canvas.width, client.orderReference.canvas.height);
     const orderPriority = client.orderPriority.getImageData(0, 0, client.orderPriority.canvas.width, client.orderPriority.canvas.height);
-    const placeReference = client.orderReference.getImageData(0, 0, client.placeReference.canvas.width, client.placeReference.canvas.height);
+    const placeReference = client.placeReference.getImageData(0, 0, client.placeReference.canvas.width, client.placeReference.canvas.height);
 
     for (let y = 0; y < orderReference.height; y++) {
         for (let x = 0; x < orderReference.width; x++) {

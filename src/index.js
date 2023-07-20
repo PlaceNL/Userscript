@@ -11,7 +11,7 @@ const client = {
 createToastifyStyle();
 hookIntoAutoUpdater();
 client.ws.connect(client);
-window.PLACENL_USERSCRIPT_CLIENT = client;
+(typeof unsafeWindow !== 'undefined' ? unsafeWindow : window).PLACENL_USERSCRIPT_CLIENT = client;
 
 function createCanvas(id) {
     const canvas = document.createElement('canvas');
