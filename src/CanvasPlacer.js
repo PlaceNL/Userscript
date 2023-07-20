@@ -53,6 +53,7 @@ export class CanvasPlacer {
                 const wrongPixels = getIncorrectPixels(client);
                 if (wrongPixels.length !== 0) {
                     while (wrongPixels.length !== 0) {
+                        console.log(wrongPixels)
                         let pixel = wrongPixels.shift();
                         const hex = rgbToHex(pixel[2]);
                         const pi = PALETTE.indexOf(hex.toUpperCase());
@@ -89,6 +90,7 @@ export class CanvasPlacer {
                     }
                 } else {
                     infoNotification(lang().TOAST_ALL_PIXELS_RIGHT, lang().TOAST_ALL_PIXELS_RIGHT_BODY, 30_000);
+                    this.cooldownEndsAt = Date.now() + 30_000;
                 }
             } finally {
                 this.placing = false;
