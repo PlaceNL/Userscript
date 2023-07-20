@@ -80,7 +80,7 @@ export class CanvasPlacer {
                         if (typeof delay === 'number') {
                             this.cooldownEndsAt = delay;
                             let timeout = Math.max(this.cooldownEndsAt - Date.now(), 1000);
-                            infoNotification(lang().TOAST_PLACED_PIXEL_AT.replace('{x}', displayX).replace('{y}', displayY), timeout);
+                            infoNotification(lang().TOAST_PLACED_PIXEL_AT.replace('{x}', displayX).replace('{y}', displayY), null, timeout);
                             infoNotification(lang().TOAST_PLACE_PIXELS_IN.replace('{time}', new Date(this.cooldownEndsAt).toLocaleTimeString()), null, timeout);
                         }
 
