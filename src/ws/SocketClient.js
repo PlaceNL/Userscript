@@ -6,6 +6,7 @@ import {lang} from '../lang/language.js';
 import {handleOrder} from './handler/orders.js';
 import {handleDisconnect} from './handler/disconnect.js';
 import {handleAnnouncement} from './handler/announcement.js';
+import {handleStats} from './handler/stats.js';
 
 export class SocketClient {
     ws;
@@ -85,6 +86,10 @@ export class SocketClient {
 
                 case 'ping':
                     handlePing(client);
+                    break;
+
+                case 'stats':
+                    handleStats(client, payload);
                     break;
 
                 case 'brandUpdated':

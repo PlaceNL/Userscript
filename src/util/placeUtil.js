@@ -154,7 +154,7 @@ export async function getPlaceCooldown(client) {
         return undefined;
     }
 
-    let ts = data.data.act.data[0].data.nextAvailablePixelTimestamp
+    let ts = data.data.act.data[0].data.nextAvailablePixelTimestamp;
 
     return !ts ? 1 : ts;
 }

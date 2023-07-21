@@ -9,7 +9,8 @@ const client = {
     orderReference: createCanvas('placenl-userscript-order-reference'),
     orderPriority: createCanvas('placenl-userscript-order-priority'),
     placeReference: createCanvas('placenl-userscript-place-reference'),
-    canvasPlacer: new CanvasPlacer()
+    canvasPlacer: new CanvasPlacer(),
+    completion: undefined
 };
 
 createToastifyStyle();

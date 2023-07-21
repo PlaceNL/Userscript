@@ -15,5 +15,6 @@ export const EN = {
     TOAST_ALL_PIXELS_RIGHT_BODY: 'Re-checking in 30 seconds...',
     TOAST_PLACING_PIXEL_AT: 'Placing pixel at {x}, {y}...',
     TOAST_PLACED_PIXEL_AT: 'Pixel placed at {x}, {y}!',
-    HUD_NEXT_PIXEL_IN: 'Next pixel in {time}...'
+    HUD_NEXT_PIXEL_IN: 'Next pixel in {time}...',
+    HUD_PIXELS_CORRECT: `{right}/{total} pixels ({percentage}%) correct, {wrong} remaining`
 };

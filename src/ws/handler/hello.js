@@ -7,6 +7,7 @@ export async function handleHello(client, payload) {
 
     client.ws.subscribe('announcements');
     client.ws.subscribe('orders');
+    client.ws.subscribe('stats');
 
     for (const capability of client.ws.capabilities) {
         client.ws.enableCapability(capability);

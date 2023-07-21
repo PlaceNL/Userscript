@@ -19,5 +19,6 @@ export const NL = {
     TOAST_ALL_PIXELS_RIGHT_BODY: 'Opnieuw checken over 30 seconden...',
     TOAST_PLACING_PIXEL_AT: 'Pixel plaatsen op {x}, {y}...',
     TOAST_PLACED_PIXEL_AT: 'Pixel geplaatst op {x}, {y}!',
-    HUD_NEXT_PIXEL_IN: 'Volgende pixel over {time}...'
+    HUD_NEXT_PIXEL_IN: 'Volgende pixel over {time}...',
+    HUD_PIXELS_CORRECT: `{right}/{total} pixels ({percentage}%) kloppen, {wrong} over`
 };

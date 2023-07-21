@@ -19,7 +19,23 @@ export class CanvasPlacer {
                 this.placing = false;
             }
 
-            if (!this.mayPlace || this.placing) return;
+            let hudText = '';
+            if (client.completion) {
+                const percentageWrong = client.completion.wrong / client.completion.total * 100;
+                const percentageRight = 100 - percentageWrong;
+
+                hudText = `${lang().HUD_PIXELS_CORRECT
+                    .replace('{right}', client.completion.right)
+                    .replace('{total}', client.completion.total)
+                    .replace('{percentage}', percentageRight.toFixed(1))
+                    .replace('{wrong}', client.completion.wrong)
+                }\n`;
+            }
+
+            if (!this.mayPlace || this.placing) {
+                setHUDBody(hudText);
+                return;
+            }
             if (!this.cooldownEndsAt) {
                 if (this.cooldownEndsAt === undefined) {
                     this.cooldownEndsAt = null;
@@ -28,21 +44,23 @@ export class CanvasPlacer {
                         infoNotification(lang().TOAST_PLACE_PIXELS_IN.replace('{time}', new Date(this.cooldownEndsAt).toLocaleTimeString()), null, Math.max(this.cooldownEndsAt - Date.now(), 1000));
                     }
                 }
+                setHUDBody(hudText);
                 return;
             }
 
-            let secondsRemaining = Math.floor((this.cooldownEndsAt - Date.now()) / 1000);
+            let secondsRemaining = Math.floor(Math.max(0, this.cooldownEndsAt - Date.now()) / 1000);
             let minutesRemaining = Math.floor(secondsRemaining / 60);
             secondsRemaining = secondsRemaining % 60;
 
-            setHUDBody(lang().HUD_NEXT_PIXEL_IN.replace('{time}', `${String(minutesRemaining).padStart(2, '0')}:${String(secondsRemaining).padStart(2, '0')}`));
+            hudText += `${lang().HUD_NEXT_PIXEL_IN.replace('{time}', `${String(minutesRemaining).padStart(2, '0')}:${String(secondsRemaining).padStart(2, '0')}`)}\n`;
+
+            setHUDBody(hudText);
             if (this.cooldownEndsAt > Date.now()) return;
 
             this.placing = true;
             this.placingSince = Date.now();
             client.ws.enableCapability('placeNow');
             infoNotification(lang().TOAST_PLACING_PIXEL);
-            setHUDBody('');
             try {
                 const canvases = await getCanvasURLS(client, [1, 2, 4, 5]);
                 client.placeReference.clearRect(0, 0, client.placeReference.canvas.width, client.placeReference.canvas.height);
