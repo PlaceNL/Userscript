@@ -9,7 +9,7 @@ export function getIncorrectPixels(client) {
 
     for (let y = 0; y < orderReference.height; y++) {
         for (let x = 0; x < orderReference.width; x++) {
-            const i = ((y * orderReference.height) + x) * 4;
+            const i = ((y * orderReference.width) + x) * 4;
             const a = orderReference.data[i + 3];
             if (a === 0) continue;
 

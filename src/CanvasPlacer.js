@@ -44,11 +44,16 @@ export class CanvasPlacer {
             infoNotification(lang().TOAST_PLACING_PIXEL);
             setHUDBody('');
             try {
-                const canvases = await getCanvasURLS(client, [1, 4]);
+                const canvases = await getCanvasURLS(client, [1, 2, 4, 5]);
                 client.placeReference.clearRect(0, 0, client.placeReference.canvas.width, client.placeReference.canvas.height);
 
-                await loadURLToCanvas(client.placeReference, canvases[0], 0, -500);
-                await loadURLToCanvas(client.placeReference, canvases[1], 0, 500);
+                // todo: shove in array
+                await Promise.all([
+                    loadURLToCanvas(client.placeReference, canvases[0], 1000, 0),
+                    loadURLToCanvas(client.placeReference, canvases[1], 2000, 0),
+                    loadURLToCanvas(client.placeReference, canvases[2], 1000, 1000),
+                    loadURLToCanvas(client.placeReference, canvases[3], 2000, 1000)
+                ]);
 
                 const wrongPixels = getIncorrectPixels(client);
                 if (wrongPixels.length !== 0) {
@@ -58,24 +63,24 @@ export class CanvasPlacer {
                         const pi = PALETTE.indexOf(hex.toUpperCase());
                         if (pi === -1) continue;
 
-                        let displayX = pixel[0] + client.orderOffset.x;
-                        let displayY = pixel[1] + client.orderOffset.y;
-                        let canvasX = 0;
-                        let canvasY = 0;
+                        let canvasX = pixel[0];
+                        let canvasY = pixel[1];
                         let canvas = 0;
-                        canvasX = (displayX + 500) % 1000;
-                        canvasY = (displayY + 1000) % 1000;
-                        if (displayY < 0) {
-                            if (displayX < -500) canvas = 0;
-                            else if (displayX > 499) canvas = 2;
+                        if (canvasY < 1000) {
+                            if (canvasX < 1000) canvas = 0;
+                            else if (canvasX >= 2000) canvas = 2;
                             else canvas = 1;
                         } else {
-                            if (displayX < -500) canvas = 3;
-                            else if (displayX > 499) canvas = 5;
+                            if (canvasX < 1000) canvas = 3;
+                            else if (canvasX >= 2000) canvas = 5;
                             else canvas = 4;
                         }
-
+                        let displayX = canvasX - 1500;
+                        let displayY = canvasY - 1000;
+                        canvasX %= 1000;
+                        canvasY %= 1000;
                         infoNotification(lang().TOAST_PLACING_PIXEL_AT.replace('{x}', displayX).replace('{y}', displayY));
+
                         let delay = await placePixel(client, canvasX, canvasY, pi, canvas);
                         if (typeof delay === 'number') {
                             this.cooldownEndsAt = delay;

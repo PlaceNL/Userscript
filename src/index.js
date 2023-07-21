@@ -9,7 +9,6 @@ const client = {
     orderReference: createCanvas('placenl-userscript-order-reference'),
     orderPriority: createCanvas('placenl-userscript-order-priority'),
     placeReference: createCanvas('placenl-userscript-place-reference'),
-    orderOffset: {x: 0, y: 0},
     canvasPlacer: new CanvasPlacer()
 };
 
@@ -29,8 +28,8 @@ client.ws.connect(client);
 
 function createCanvas(id) {
     const canvas = document.createElement('canvas');
-    canvas.width = 1000;
-    canvas.height = 1000;
+    canvas.width = 3000;
+    canvas.height = 2000;
     const ctx = canvas.getContext('2d');
     canvas.style.display = 'none';
     canvas.id = id;
