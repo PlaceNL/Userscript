@@ -9,7 +9,7 @@ export async function handleOrder(client, payload) {
     client.orderPriority.clearRect(0, 0, client.orderPriority.canvas.width, client.orderPriority.canvas.height);
 
     await Promise.all([
-        loadURLToCanvas(client.orderReference, 'https://chief.placenl.nl/orders/f2fca21c-7ab4-4b56-bcbc-b8601a809cf8.png' ?? payload.images.order, 1500 + payload.offset.x, 1000 + payload.offset.y),
+        loadURLToCanvas(client.orderReference, payload.images.order, 1500 + payload.offset.x, 1000 + payload.offset.y),
         payload.images.priority ? loadURLToCanvas(client.orderPriority, payload.images.priority) : Promise.resolve() // an empty promise - a lie
     ]);
 }
