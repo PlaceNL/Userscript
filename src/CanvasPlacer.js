@@ -62,15 +62,17 @@ export class CanvasPlacer {
             client.ws.enableCapability('placeNow');
             infoNotification(lang().TOAST_PLACING_PIXEL);
             try {
-                const canvases = await getCanvasURLS(client, [1, 2, 4, 5]);
+                const canvases = await getCanvasURLS(client, [0, 1, 2, 3, 4, 5]);
                 client.placeReference.clearRect(0, 0, client.placeReference.canvas.width, client.placeReference.canvas.height);
 
                 // todo: shove in array
                 await Promise.all([
-                    loadURLToCanvas(client.placeReference, canvases[0], 1000, 0),
-                    loadURLToCanvas(client.placeReference, canvases[1], 2000, 0),
-                    loadURLToCanvas(client.placeReference, canvases[2], 1000, 1000),
-                    loadURLToCanvas(client.placeReference, canvases[3], 2000, 1000)
+                    loadURLToCanvas(client.placeReference, canvases[0], 0, 0),
+                    loadURLToCanvas(client.placeReference, canvases[1], 1000, 0),
+                    loadURLToCanvas(client.placeReference, canvases[2], 2000, 0),
+                    loadURLToCanvas(client.placeReference, canvases[3], 0, 1000),
+                    loadURLToCanvas(client.placeReference, canvases[4], 1000, 1000),
+                    loadURLToCanvas(client.placeReference, canvases[5], 2000, 1000)
                 ]);
 
                 const wrongPixels = getIncorrectPixels(client);
