@@ -93,6 +93,7 @@ export class SocketClient {
                     break;
 
                 case 'brandUpdated':
+                case 'confirmPlace':
                 case 'enabledCapability':
                 case 'disabledCapability':
                 case 'subscribed':

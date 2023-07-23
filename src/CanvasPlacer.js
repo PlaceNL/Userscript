@@ -111,6 +111,10 @@ export class CanvasPlacer {
                             infoNotification(lang().TOAST_PLACE_PIXELS_IN.replace('{time}', new Date(this.cooldownEndsAt).toLocaleTimeString()), null, timeout);
                         }
 
+                        if (placed) {
+                            client.ws.sendPayload('place', {x: displayX + 1500, y: displayY + 1000, color: pi});
+                        }
+
                         break;
                     }
                 } else {
