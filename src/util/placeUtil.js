@@ -4,7 +4,7 @@ export async function placePixel(client, x, y, color, canvasIndex) {
     const accessToken = await getAccessToken(client);
 
     if (!accessToken) {
-        return false;
+        return [false];
     }
 
     const resp = await fetch('https://gql-realtime-2.reddit.com/query', {
@@ -41,10 +41,12 @@ export async function placePixel(client, x, y, color, canvasIndex) {
     const data = await resp.json();
 
     if (!data.data) {
-        return false;
+        let nextTs = data.errors?.find((e) => e.extensions?.nextAvailablePixelTs)?.extensions.nextAvailablePixelTs;
+
+        return [false, nextTs];
     }
 
-    return data.data.act.data.find((e) => e.data.__typename === 'GetUserCooldownResponseMessageData').data.nextAvailablePixelTimestamp;
+    return [true, data.data.act.data.find((e) => e.data.__typename === 'GetUserCooldownResponseMessageData').data.nextAvailablePixelTimestamp];
 }
 
 export function getCanvasURLS(client, canvases) {
