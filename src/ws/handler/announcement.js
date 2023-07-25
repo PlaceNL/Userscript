@@ -4,7 +4,7 @@ const IMPORTANT_DURATION = 300_000;
 
 export function handleAnnouncement(payload) {
     Toastify({
-        message: payload.message,
+        text: payload.message,
         duration: payload.showFor ?? (payload.important ? IMPORTANT_DURATION : 60000),
         style: payload.style ?? undefined
     }).showToast();
